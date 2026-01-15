@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><head><title>Result</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+</head>
+<body>
+<nav class="nav-bar">
+     <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+  <a href="/analytics">Analytics</a>
+</nav>
+
+<header class="header"><h1>Fuel Estimation Result</h1></header>
+<div class="container"><div class="card"><h2>Estimated Fuel Required:</h2><h1>{{fuel}} Liters</h1></div></div></div>
+</body></html>

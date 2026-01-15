@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CEO Dashboard – Executive Overview</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+   <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+</div>
+
+<!-- ================= PAGE CONTENT ================= -->
+<div class="section fade-in">
+
+    <!-- ---------- HEADER ---------- -->
+    <div class="card page-header">
+        <h2>Executive Summary – Fleet Operations</h2>
+        <p>
+            This executive dashboard presents a high-level overview of fleet
+            fuel utilization and operational scale. It is designed to support
+            strategic decision-making and long-term planning.
+        </p>
+    </div>
+
+    <!-- ---------- KPI CARDS ---------- -->
+    <div class="kpi-grid">
+
+        <div class="card kpi">
+            <h4>Total Fuel Consumed</h4>
+            <p class="kpi-value">{{ summary.total_fuel }}</p>
+            <span class="kpi-unit">liters</span>
+        </div>
+
+        <div class="card kpi">
+            <h4>Total Flights Recorded</h4>
+            <p class="kpi-value">{{ summary.total_flights }}</p>
+            <span class="kpi-unit">flights</span>
+        </div>
+
+        <div class="card kpi">
+            <h4>Aircraft Types</h4>
+            <p class="kpi-value">{{ summary.aircraft_count }}</p>
+            <span class="kpi-unit">models</span>
+        </div>
+
+        <div class="card kpi">
+            <h4>Operational Period</h4>
+            <p class="kpi-value">{{ summary.years_covered }}</p>
+            <span class="kpi-unit">years</span>
+        </div>
+
+    </div>
+
+    <!-- ---------- STRATEGIC NOTE ---------- -->
+    <div class="card note">
+        <h4>Strategic Context</h4>
+        <p>
+            The metrics above summarize fleet scale and fuel utilization trends
+            across the recorded operational period. Detailed efficiency,
+            maintenance, and aircraft-level analytics are available in the
+            respective dashboards to support tactical and operational reviews.
+        </p>
+    </div>
+
+</div>
+
+<!-- ================= PAGE STYLES ================= -->
+<style>
+
+/* HEADER */
+.page-header {
+    background: #f8fafc;
+    border-left: 6px solid #0b3c5d;
+}
+
+/* KPI GRID */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 25px;
+}
+
+/* KPI CARD */
+.kpi {
+    text-align: center;
+}
+
+.kpi h4 {
+    margin-bottom: 10px;
+    color: #475569;
+    font-weight: 600;
+}
+
+.kpi-value {
+    font-size: 34px;
+    font-weight: 700;
+    color: #0b3c5d;
+    margin: 0;
+}
+
+.kpi-unit {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* NOTE */
+.note {
+    margin-top: 30px;
+    background: #f9fafb;
+    border-left: 6px solid #0b3c5d;
+}
+
+/* FADE-IN */
+.fade-in {
+    animation: fadeIn 0.9s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+    .kpi-value {
+        font-size: 28px;
+    }
+}
+
+</style>
+
+</body>
+</html>

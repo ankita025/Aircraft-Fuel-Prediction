@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fuel Efficiency Ranking</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+</head>
+<body>
+
+<!-- ================= NAVIGATION ================= -->
+<div class="navbar">
+   <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+</div>
+
+<!-- ================= PAGE CONTENT ================= -->
+<div class="section fade-in">
+
+    <!-- ---------- PAGE HEADER ---------- -->
+    <div class="card page-header">
+        <h2>Fuel Efficiency Ranking</h2>
+        <p>
+            This ranking compares aircraft based on average fuel consumption
+            per kilometer. Lower values indicate higher fuel efficiency and
+            more cost-effective operations.
+        </p>
+    </div>
+
+    <!-- ---------- RANKING TABLE ---------- -->
+    <div class="card">
+        <h3>Aircraft Fuel Efficiency Overview</h3>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Aircraft Type</th>
+                    <th>Fuel per km (liters)</th>
+                    <th>Efficiency</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in ranking %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ r.aircraft_type }}</td>
+                    <td>{{ "%.2f"|format(r.fuel_per_km) }}</td>
+                    <td>
+                        {% if r.fuel_per_km < 1.0 %}
+                            <span class="status normal">Excellent</span>
+                        {% elif r.fuel_per_km < 1.8 %}
+                            <span class="status warning">Average</span>
+                        {% else %}
+                            <span class="status critical">Inefficient</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ---------- INSIGHT NOTE ---------- -->
+    <div class="card note">
+        <h4>Operational Insight</h4>
+        <p>
+            Fuel-efficient aircraft contribute significantly to reduced operating
+            costs and environmental impact. This ranking supports fleet planning,
+            route optimization, and long-term sustainability strategies.
+        </p>
+    </div>
+
+</div>
+
+<!-- ================= PAGE STYLES ================= -->
+<style>
+
+/* PAGE HEADER */
+.page-header {
+    background: #f8fafc;
+    border-left: 6px solid #0b3c5d;
+}
+
+/* TABLE */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+}
+
+.data-table thead th {
+    background: #0b3c5d;
+    color: #ffffff;
+    padding: 14px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.data-table tbody td {
+    padding: 14px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 15px;
+}
+
+/* STATUS LABELS */
+.status {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status.normal {
+    background: #e6f4ea;
+    color: #1e7f4f;
+}
+
+.status.warning {
+    background: #fff4e5;
+    color: #9a6700;
+}
+
+.status.critical {
+    background: #fdecea;
+    color: #b42318;
+}
+
+/* NOTE */
+.note {
+    background: #f9fafb;
+    border-left: 6px solid #0b3c5d;
+}
+
+/* FADE-IN */
+.fade-in {
+    animation: fadeIn 0.9s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+
+</body>
+</html>

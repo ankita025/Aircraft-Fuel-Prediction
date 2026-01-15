@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Prediction History | Booklet Aviation</title>
+
+<link rel="stylesheet" href="/static/style.css">
+<link rel="icon" type="image/svg+xml"
+      href="{{ url_for('static', filename='favicon.svg') }}">
+
+<style>
+/* ===== PAGE WRAPPER ===== */
+.page {
+    max-width: 1400px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+/* ===== HEADER ===== */
+.page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 34px;
+    color: #0b3c5d;
+    margin-bottom: 6px;
+}
+
+.page-header p {
+    color: #4b5563;
+    font-size: 14px;
+}
+
+/* ===== SEARCH BAR ===== */
+.search-box {
+    max-width: 420px;
+    margin: 25px auto;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 30px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    padding-left: 44px;
+}
+
+.search-box::before {
+    content: "🔍";
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+/* ===== TABLE CARD ===== */
+.table-card {
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.07);
+    overflow-x: auto;
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1100px;
+}
+
+thead th {
+    background: #0b3c5d;
+    color: white;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 14px;
+    text-align: left;
+}
+
+tbody td {
+    padding: 14px;
+    font-size: 13px;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:hover {
+    background: #f1f5f9;
+}
+
+/* ===== AIRCRAFT BADGE ===== */
+.aircraft-badge {
+    background: #e8f1fa;
+    color: #0b3c5d;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-block;
+}
+
+/* ===== FUEL HIGHLIGHT ===== */
+.fuel {
+    font-weight: 700;
+    color: #145da0;
+}
+
+/* ===== FADE-IN ===== */
+.fade-in {
+    animation: fadeIn 0.7s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+  <a href="/analytics">Analytics</a>
+    <a href="/history">History</a>
+</div>
+
+<div class="page fade-in">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <h1>Fuel Prediction History</h1>
+        <p>
+            Historical records of aircraft fuel estimations used for
+            operational analysis, auditing, and strategic planning.
+        </p>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+        <input type="text"
+               id="search"
+               placeholder="Search by aircraft type or year…"
+               onkeyup="filterTable()">
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-card">
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>Aircraft</th>
+                    <th>Distance (km)</th>
+                    <th>Payload (kg)</th>
+                    <th>Altitude (ft)</th>
+                    <th>Speed (km/h)</th>
+                    <th>Temp (°C)</th>
+                    <th>Wind</th>
+                    <th>Humidity</th>
+                    <th>Duration (hr)</th>
+                    <th>Fuel (L)</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for r in records %}
+                <tr>
+                    <td>
+                        <span class="aircraft-badge">
+                            {{ r.aircraft_type }}
+                        </span>
+                    </td>
+                    <td>{{ r.distance_km }}</td>
+                    <td>{{ r.payload_kg }}</td>
+                    <td>{{ r.altitude_ft }}</td>
+                    <td>{{ r.cruise_speed_kmh }}</td>
+                    <td>{{ r.temperature_c }}</td>
+                    <td>{{ r.wind_speed_kmh }}</td>
+                    <td>{{ r.humidity_percent }}</td>
+                    <td>{{ r.flight_duration_hr }}</td>
+                    <td class="fuel">{{ r.fuel_liters }}</td>
+                    <td>{{ r.year }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+function filterTable() {
+    let s = document.getElementById("search").value.toLowerCase();
+    let rows = document.querySelectorAll("#table tbody tr");
+
+    rows.forEach(r => {
+        r.style.display =
+            r.innerText.toLowerCase().includes(s) ? "" : "none";
+    });
+}
+</script>
+
+</body>
+</html>

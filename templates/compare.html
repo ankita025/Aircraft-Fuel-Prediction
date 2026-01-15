@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aircraft Comparison</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+</div>
+
+<div class="section fade-in">
+
+    <!-- HEADER -->
+    <div class="card page-header">
+        <h2>Aircraft Performance Comparison</h2>
+        <p>
+            Compare aircraft based on fuel efficiency, distance coverage,
+            and route suitability to support operational decision-making.
+        </p>
+    </div>
+
+    <!-- FORM -->
+    <div class="card selection-card">
+        <form method="get" class="compare-form">
+
+            <div class="form-group">
+                <label>Aircraft A</label>
+                <select name="a1">
+                    {% for a in aircrafts %}
+                    <option value="{{ a }}" {% if request.args.a1 == a %}selected{% endif %}>{{ a }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Aircraft B</label>
+                <select name="a2">
+                    {% for a in aircrafts %}
+                    <option value="{{ a }}" {% if request.args.a2 == a %}selected{% endif %}>{{ a }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Route Type</label>
+                <select name="route">
+                    <option value="short">Short Haul (&lt;1500 km)</option>
+                    <option value="medium">Medium Haul (1500–4000 km)</option>
+                    <option value="long">Long Haul (&gt;4000 km)</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary">Compare</button>
+        </form>
+    </div>
+
+    {% if comparison %}
+    <!-- COMPARISON TABLE -->
+    <div class="card">
+        <h3>Comparison Summary</h3>
+
+        <table class="data-table">
+            <tr>
+                <th>Metric</th>
+                <th>{{ request.args.a1 }}</th>
+                <th>{{ request.args.a2 }}</th>
+            </tr>
+            <tr>
+                <td>Total Fuel (liters)</td>
+                <td>{{ comparison.a1.fuel }}</td>
+                <td>{{ comparison.a2.fuel }}</td>
+            </tr>
+            <tr>
+                <td>Total Distance (km)</td>
+                <td>{{ comparison.a1.distance }}</td>
+                <td>{{ comparison.a2.distance }}</td>
+            </tr>
+            <tr>
+                <td>Flights</td>
+                <td>{{ comparison.a1.flights }}</td>
+                <td>{{ comparison.a2.flights }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 🏆 BETTER AIRCRAFT -->
+    <div class="card winner-card">
+        🏆 <b>Better Aircraft:</b> {{ better_aircraft }}
+        <p>
+            Based on overall fuel efficiency and operational performance,
+            <b>{{ better_aircraft }}</b> is the superior choice.
+        </p>
+    </div>
+
+    <!-- 🛫 ROUTE RECOMMENDATION -->
+    {% if route_recommendation %}
+    <div class="card route-card">
+        🛫 <b>Route-Based Recommendation:</b> {{ route_recommendation }}
+        <p>
+            This aircraft is better suited for the selected route profile.
+        </p>
+    </div>
+    {% endif %}
+    {% endif %}
+
+</div>
+
+<style>
+.page-header { border-left:6px solid #0b3c5d; background:#f8fafc; }
+.compare-form { display:flex; gap:20px; flex-wrap:wrap; }
+.form-group { display:flex; flex-direction:column; min-width:200px; }
+.btn-primary { background:#0b3c5d; color:white; padding:10px 22px; border:none; border-radius:8px; cursor:pointer; }
+.data-table { width:100%; border-collapse:collapse; }
+.data-table td, .data-table th { padding:12px; border-bottom:1px solid #ddd; }
+.winner-card { background:#e6f4ea; border-left:6px solid #1e7f4f; }
+.route-card { background:#eef2ff; border-left:6px solid #4338ca; }
+.fade-in { animation: fadeIn .8s ease-in; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1} }
+</style>
+
+</body>
+</html>

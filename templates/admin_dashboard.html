@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Analytics Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+          href="{{ url_for('static', filename='favicon.svg') }}">
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Page-specific polish -->
+    <style>
+        body {
+            background: #f4f7fb;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            color: #0b3c5d;
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: #4b5563;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: white;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+            text-align: left;
+            position: relative;
+        }
+
+        .stat-box span {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .stat-box h2 {
+            margin-top: 8px;
+            font-size: 26px;
+            color: #0b3c5d;
+        }
+
+        .stat-box::after {
+            content: "";
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            width: 8px;
+            height: 40px;
+            background: #0b3c5d;
+            border-radius: 4px;
+            opacity: 0.15;
+        }
+
+        .chart-card {
+            padding: 25px;
+        }
+
+        .chart-card h3 {
+            margin-bottom: 18px;
+            color: #0b3c5d;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.7s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="section fade-in">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <h1>Admin Analytics Dashboard</h1>
+        <p>
+            High-level operational overview of fleet fuel usage and activity trends.
+            This dashboard supports internal monitoring and strategic planning.
+        </p>
+    </div>
+
+    <!-- KPI STATS -->
+    <div class="stats">
+        <div class="stat-box">
+            <span>Total Fuel Consumed</span>
+            <h2>16,620 L</h2>
+        </div>
+
+        <div class="stat-box">
+            <span>Total Flights Recorded</span>
+            <h2>3,249</h2>
+        </div>
+
+        <div class="stat-box">
+            <span>Average Fuel / Flight</span>
+            <h2>12,580 L</h2>
+        </div>
+    </div>
+
+    <!-- CHART -->
+    <div class="card chart-card">
+        <h3>Monthly Fuel Usage Trend</h3>
+        <canvas id="adminChart" height="120"></canvas>
+    </div>
+
+</div>
+
+<!-- CHART SCRIPT -->
+<script>
+const ctx = document.getElementById("adminChart");
+
+new Chart(ctx, {
+    type: "bar",
+    data: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+        datasets: [{
+            label: "Fuel Consumption (×100 L)",
+            data: [120, 160, 140, 180, 150],
+            backgroundColor: "#0b3c5d",
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                backgroundColor: "#0b3c5d"
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: { color: "#e5e7eb" }
+            },
+            x: {
+                grid: { display: false }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

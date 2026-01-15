@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Maintenance Insights</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+     <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+  <a href="/analytics">Analytics</a>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="section fade-in">
+
+    <!-- HEADER CARD -->
+    <div class="card header-card">
+        <h2>Maintenance-Oriented Fuel Insights</h2>
+        <p>
+            This view highlights aircraft with higher average fuel consumption per
+            operational hour. Elevated values may indicate increased engine load,
+            aerodynamic drag, or maintenance review requirements.
+        </p>
+    </div>
+
+    <!-- DATA TABLE CARD -->
+    <div class="card">
+        <h3>Average Fuel Consumption per Flight Hour</h3>
+
+        <table class="data-table">
+            <tr>
+                <th>Aircraft Type</th>
+                <th>Avg Fuel / Hour (liters)</th>
+                <th>Status</th>
+            </tr>
+
+            {% for i in insights %}
+            <tr>
+                <td>{{ i.aircraft_type }}</td>
+                <td>{{ "%.2f"|format(i.fuel_per_hr) }}</td>
+                <td>
+                    {% if i.fuel_per_hr > 1200 %}
+                        <span class="status high">Review Required</span>
+                    {% elif i.fuel_per_hr > 800 %}
+                        <span class="status medium">Monitor</span>
+                    {% else %}
+                        <span class="status good">Normal</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- OPERATIONAL NOTE -->
+    <div class="card note">
+        <p>
+            <b>Operational Guidance</b><br><br>
+            Aircraft flagged for review should undergo further inspection of
+            engine efficiency, fuel systems, and aerodynamic surfaces. This
+            analysis supports proactive maintenance planning and cost control.
+        </p>
+    </div>
+
+</div>
+
+<!-- PAGE-SPECIFIC STYLES -->
+<style>
+
+/* HEADER CARD */
+.header-card {
+    background: #f8fafc;
+}
+
+/* TABLE */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.data-table th {
+    background: #0b3c5d;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.data-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* STATUS BADGES */
+.status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status.good {
+    background: #e6f4ea;
+    color: #1e7f4f;
+}
+
+.status.medium {
+    background: #fff4e5;
+    color: #9a6700;
+}
+
+.status.high {
+    background: #fdecea;
+    color: #b42318;
+}
+
+/* NOTE */
+.note {
+    border-left: 5px solid #0b3c5d;
+    background: #f9fafb;
+}
+
+/* FADE-IN */
+.fade-in {
+    animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="navbar">
+  <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+</div>
+
+<div class="section dashboard-grid">
+  <div class="card">
+    <h3>Aircraft-Wise Fuel Consumption</h3>
+    <canvas id="fuelChart"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>Summary</h3>
+    <p>Total Aircraft: 8</p>
+    <p>Avg Fuel Usage</p>
+  </div>
+</div>
+
+<script>
+new Chart(document.getElementById("fuelChart"), {
+  type: "line",
+  data: {
+    labels: ["B737","A320","B747","A380","B777"],
+    datasets: [{
+      data: [90,110,150,130,100],
+      borderColor: "#0b4ea2",
+      fill: true
+    }]
+  }
+});
+</script>
+
+</body>
+</html>

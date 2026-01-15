@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yearly Fuel Report</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+</head>
+<body>
+
+<div class="navbar">
+   <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+  <a href="/analytics">Analytics</a>
+</div>
+
+<div class="section">
+  <div class="card">
+    <h3>Yearly Fuel Usage Trend</h3>
+    <canvas id="yearChart"></canvas>
+  </div>
+</div>
+
+<script>
+new Chart(document.getElementById("yearChart"), {
+  type: "line",
+  data: {
+    labels: ["2019","2020","2021","2022","2023"],
+    datasets: [{
+      data: [150,180,210,260,300],
+      borderColor: "#0b4ea2"
+    }]
+  }
+});
+</script>
+
+</body>
+</html>

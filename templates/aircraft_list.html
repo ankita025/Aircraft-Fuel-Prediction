@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aircraft Fleet</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="section">
+    <h2>Aircraft Fleet Overview</h2>
+    <p style="max-width:900px;">
+        Select an aircraft below to view detailed operational analytics, fuel
+        consumption trends, and yearly performance insights.
+    </p>
+
+    <!-- GRID: ONLY 2 PER ROW -->
+    <div class="fleet-grid">
+        {% for aircraft in aircrafts %}
+        <div class="card aircraft-card"
+             onclick="openAircraft('{{ aircraft }}')">
+
+            <img src="/static/aircraft/{{ aircraft.lower().replace(' ','_') }}.jpg"
+                 alt="{{ aircraft }}">
+
+            <div class="aircraft-info">
+                <h3>{{ aircraft }}</h3>
+                <p>
+                    Click to view aircraft-specific fuel analytics,
+                    historical trends, and operational insights.
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- CLICK ANIMATION SCRIPT -->
+<script>
+function openAircraft(name) {
+    const card = event.currentTarget;
+    card.classList.add("clicked");
+
+    setTimeout(() => {
+        window.location.href = "/aircraft/" + name;
+    }, 450);
+}
+</script>
+
+<!-- PAGE-SPECIFIC STYLES -->
+<style>
+/* GRID: 2 CARDS PER ROW */
+.fleet-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-top: 30px;
+}
+
+/* CARD DESIGN */
+.aircraft-card {
+    cursor: pointer;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* IMAGE SIZE */
+.aircraft-card img {
+    width: 280px;
+    height: auto;
+    border-radius: 12px;
+}
+
+/* TEXT AREA */
+.aircraft-info h3 {
+    margin: 0 0 8px 0;
+    font-size: 22px;
+}
+
+.aircraft-info p {
+    margin: 0;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* HOVER EFFECT */
+.aircraft-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.15);
+}
+
+/* CLICK ANIMATION */
+.aircraft-card.clicked {
+    transform: scale(0.92);
+    opacity: 0.85;
+}
+
+/* RESPONSIVE (MOBILE) */
+@media (max-width: 900px) {
+    .fleet-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .aircraft-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .aircraft-card img {
+        width: 90%;
+    }
+}
+</style>
+
+</body>
+</html>

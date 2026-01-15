@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ aircraft }} – Operational Profile</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="section fade-in">
+
+    <!-- AIRCRAFT SUMMARY CARD -->
+    <div class="card aircraft-header">
+
+        <img src="/static/aircraft/{{ aircraft.lower().replace(' ','_') }}.jpg"
+             alt="{{ aircraft }}">
+
+        <div class="aircraft-info">
+            <h2>{{ aircraft }}</h2>
+
+            <p><b>Total Fuel Consumption:</b> {{ total_fuel }} liters</p>
+            <p><b>Average Fuel per Flight:</b> {{ avg_fuel }} liters</p>
+            <p><b>Total Flights Recorded:</b> {{ flights }}</p>
+            <p><b>Average Flight Distance:</b> {{ avg_distance }} km</p>
+            <p><b>Average Cruise Altitude:</b> {{ avg_altitude }} ft</p>
+        </div>
+    </div>
+
+    <!-- YEAR-WISE FUEL TABLE (THIS ONE WORKS) -->
+    <div class="card">
+        <h3>Year-wise Fuel Consumption</h3>
+
+        <table class="data-table">
+            <tr>
+                <th>Year</th>
+                <th>Total Fuel Consumed (liters)</th>
+            </tr>
+
+            {% for year, fuel in yearly.items() %}
+            <tr>
+                <td>{{ year }}</td>
+                <td>{{ fuel }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- OPERATIONAL NOTE -->
+    <div class="card note">
+        <p>
+            <b>Operational Note</b><br><br>
+            Fuel consumption values are derived from historical operational
+            records and are intended for analytical and planning support.
+            These values should not be used as the sole basis for real-time
+            flight dispatch or regulatory decisions.
+        </p>
+    </div>
+
+</div>
+
+<!-- STYLES -->
+<style>
+
+/* HEADER LAYOUT */
+.aircraft-header {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+/* IMAGE */
+.aircraft-header img {
+    width: 420px;
+    border-radius: 14px;
+}
+
+/* TEXT */
+.aircraft-info h2 {
+    margin-top: 0;
+    font-size: 28px;
+}
+
+.aircraft-info p {
+    margin: 6px 0;
+    font-size: 16px;
+}
+
+/* TABLE */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.data-table th {
+    background: #0b3c5d;
+    color: white;
+    padding: 10px;
+}
+
+.data-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* NOTE */
+.note {
+    background: #f8fafc;
+    border-left: 5px solid #0b3c5d;
+}
+
+/* FADE-IN */
+.fade-in {
+    animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .aircraft-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .aircraft-header img {
+        width: 90%;
+    }
+}
+</style>
+
+</body>
+</html>

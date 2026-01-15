@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Booklet Aviation – Fuel Intelligence Platform</title>
+
+<link rel="stylesheet" href="/static/style.css">
+<link rel="icon" type="image/svg+xml"
+      href="{{ url_for('static', filename='favicon.svg') }}">
+
+<style>
+/* ===== GLOBAL ===== */
+body {
+  background: #f4f7fb;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: #1f2937;
+}
+
+/* ===== HERO ===== */
+.hero {
+  height: 80vh;
+  background:
+    linear-gradient(rgba(11,60,93,0.82), rgba(11,60,93,0.82)),
+    url("/static/hero_bg.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 52px;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  max-width: 720px;
+  margin: auto;
+  opacity: 0.95;
+}
+
+.hero-buttons {
+  margin-top: 32px;
+}
+
+.hero-buttons a {
+  padding: 14px 34px;
+  border-radius: 40px;
+  font-weight: 600;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.btn-primary {
+  background: white;
+  color: #0b3c5d;
+}
+
+.btn-secondary {
+  border: 2px solid white;
+  color: white;
+}
+
+/* ===== SECTION HEADERS ===== */
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-header h2 {
+  font-size: 32px;
+  color: #0b3c5d;
+}
+
+.section-header p {
+  font-size: 15px;
+  color: #4b5563;
+  max-width: 680px;
+  margin: auto;
+}
+
+/* ===== FEATURES ===== */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.feature-card {
+  background: white;
+  padding: 28px;
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.07);
+}
+
+.feature-card h4 {
+  color: #0b3c5d;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+/* ===== FUEL CARD ===== */
+.fuel-card {
+  max-width: 980px;
+  margin: auto;
+  padding: 40px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #ffffff, #f1f5fb);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+}
+
+.fuel-header h3 {
+  font-size: 28px;
+  color: #0b3c5d;
+}
+
+.fuel-header p {
+  font-size: 14px;
+  color: #4b5563;
+  margin-top: 6px;
+}
+
+/* FORM */
+.fuel-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.fuel-form select,
+.fuel-form input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+  margin-top: 26px;
+}
+
+.form-action {
+  text-align: center;
+  margin-top: 34px;
+}
+
+.form-action button {
+  background: linear-gradient(135deg, #0b3c5d, #145da0);
+  color: white;
+  padding: 15px 50px;
+  border-radius: 40px;
+  border: none;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 15px 40px rgba(11,60,93,0.35);
+}
+
+/* RESULT */
+.result-box {
+  margin-top: 36px;
+  padding: 26px;
+  background: #e6f4ea;
+  border-left: 6px solid #1e7f4f;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.result-box h4 {
+  color: #1e7f4f;
+}
+
+.result-box p {
+  font-size: 34px;
+  font-weight: 700;
+}
+
+/* TRUST STRIP */
+.trust-strip {
+  background: white;
+  padding: 34px;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+}
+
+.trust-strip h3 {
+  font-size: 24px;
+  color: #0b3c5d;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <img src="/static/logo.svg">
+  <a href="/">Home</a> 
+  <a href="/dashboard">Dashboard</a> 
+  <a href="/admin">Admin</a>
+  <a href="/yearly">Yearly</a> 
+  <a href="/aircraft">Fleet</a> 
+  <a href="/compare">Compare</a>
+  <a href="/efficiency">Efficiency</a>
+  <a href="/maintenance">Maintenance</a> 
+  <a href="/ceo">CEO</a>
+  <a href="/analytics">Analytics</a>
+    <a href="/history">History</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <h1>BOOKLET AVIATION</h1>
+    <p>
+      A data-driven fuel intelligence platform empowering airlines
+      to optimize cost, efficiency, and operational decisions.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="/dashboard" class="btn-primary">Executive Dashboard</a>
+      <a href="/aircraft" class="btn-secondary">Fleet Insights</a>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="section">
+  <div class="section-header">
+    <h2>Why Airlines Choose Booklet</h2>
+    <p>
+      Built for operational leaders, analysts, and executives who
+      demand clarity, accuracy, and strategic insight.
+    </p>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <h4>Fuel Intelligence</h4>
+      <p>Predict fuel consumption using historical and operational parameters.</p>
+    </div>
+    <div class="feature-card">
+      <h4>Fleet Benchmarking</h4>
+      <p>Compare aircraft performance across routes and operational conditions.</p>
+    </div>
+    <div class="feature-card">
+      <h4>Maintenance Signals</h4>
+      <p>Identify inefficiencies that indicate potential maintenance actions.</p>
+    </div>
+    <div class="feature-card">
+      <h4>Executive Readiness</h4>
+      <p>Clear KPIs designed for decision-makers and leadership teams.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FUEL ESTIMATOR -->
+<div class="section">
+  <div class="fuel-card">
+    <div class="fuel-header">
+      <h3>Fuel Consumption Estimator</h3>
+      <p>Simulate fuel requirements before operational planning.</p>
+    </div>
+
+    <form method="POST" action="/predict" class="fuel-form">
+      <div class="form-grid-2">
+        <div>
+          <label>Aircraft Type</label>
+          <select name="aircraft_type" required>
+            <option value="">Select Aircraft</option>
+            <option>Airbus A320</option>
+            <option>Boeing 737</option>
+            <option>Boeing 747</option>
+            <option>Boeing 777</option>
+            <option>Airbus A380</option>
+            <option>Embraer E190</option>
+            <option>ATR 72</option>
+            <option>Cessna 172</option>
+          </select>
+        </div>
+
+        <div><label>Distance (km)</label><input name="distance" required></div>
+        <div><label>Payload (kg)</label><input name="payload" required></div>
+        <div><label>Speed (km/h)</label><input name="speed" required></div>
+        <div><label>Altitude (ft)</label><input name="altitude" required></div>
+        <div><label>Temperature (°C)</label><input name="temperature" required></div>
+        <div><label>Wind Speed (km/h)</label><input name="wind" required></div>
+      </div>
+
+      <div class="form-action">
+        <button type="submit">Estimate Fuel</button>
+      </div>
+    </form>
+
+    {% if fuel %}
+    <div class="result-box">
+      <h4>Estimated Fuel Requirement</h4>
+      <p>{{ fuel }} liters</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- TRUST -->
+<div class="section">
+  <div class="trust-strip">
+    <div><h3>15+ Years</h3><span>Operational Data</span></div>
+    <div><h3>8 Aircraft</h3><span>Fleet Coverage</span></div>
+    <div><h3>Enterprise-Ready</h3><span>Scalable Architecture</span></div>
+    <div><h3>Decision Focused</h3><span>Executive Intelligence</span></div>
+  </div>
+</div>
+
+</body>
+</html>
